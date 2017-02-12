@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Todo list</title>
+  </head>
+
+  <body>
+    <div>
+     <h3>What is your focus for today?</h3>
+     <input type="text" id="todo">
+    </div>
+    <p id="showLastTodo"/>
+    <div id="allDiv">
+      <h3>Your todo list:</h3>
+      <ul style="list-style-type:none" id="allUl"/>
+    </div>
+    
+
+    <script src="todolistHtml.js"></script>
+    
+    <script>
+      document.getElementById("todo").addEventListener("keyup", addTodo);
+
+      function addTodo(event) {
+        if (event.keyCode == 13) {
+          var line = event.target.value;
+
+          if (line.length > 0) { 
+            addLine(line);
+            document.getElementById("showLastTodo").innerHTML = 'A new task is added to the list: ' + line;
+            event.target.value = '';
+
+            document.getElementById("allUl").innerHTML = renderList();   
+          };   
+        };  
+      };
+
+      function renderList() {
+        var result = '';
+        for (var i = 0; i < list.length; i++) {
+          result += '<li><input type="checkbox" id="' + list[i].lineId + '">' + list[i].line + '</li>';
+        };
+        return result;
+      };
+
+    </script>
+  </body>
+</html>
