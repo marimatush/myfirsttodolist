@@ -1,28 +1,26 @@
-var list = [];
-var count = 0;
+//var list = [];
+//var count = 0;
 
-function addLine(text) {
-  list.push({lineId: ++count, line: text, isDone: false});
+function newList() {
+  var list = [];
+  return list;
 };
 
-function markDone(id) {
-  var lineFound = false;
+function addLine(list, text) {
+  list.push({lineId: nextId(list), line: text, isDone: false});
+};
+
+function toggleDone(list, id) {
   if (!isNaN(id)) {
     for (var i = 0; i < list.length; i++) {
       if (list[i].lineId == id) {
-        list[i].isDone = true;
-        lineFound = true;
-        return (true);
+        list[i].isDone = !list[i].isDone;
       };
     };
   };
-
-  if (!lineFound) {
-    return (false);
-  };
 };
 
-function deleteLine(id) {
+function deleteLine(list, id) {
   var lineFound = false;
   if (!isNaN(id)) {
     for (var i = 0; i < list.length; i++) {
@@ -38,23 +36,13 @@ function deleteLine(id) {
   };
 };
 
-//var all = todolist.getall
-
-function printList() {
-  var text = '';
-  for (var i = 0; i < list.length; i++) {
-    text += printLine(list[i]);
+function nextId(list) {
+  var count = 0;
+  for (var i = 0; i < list.length; i ++) {
+    if (list[i].lineId > count) {
+      count = list[i].lineId;
+    };
   };
 
-  return (text);
-};
-
-function printLine(todoLine) {
-  var status;
-  if (todoLine.isDone) {
-    status = '*done*';
-  } else {
-    status = 'not done';
-  };
-  return ('todo' + ' ' + todoLine.lineId + ':' + ' ' + todoLine.line + ' - ' + status + '\n');
+  return ++count;
 };
