@@ -24,7 +24,7 @@
     <script>
       document.getElementById("todo").addEventListener("keyup", addTodo);
       document.getElementById("all").addEventListener("change", onCheckboxChange);
-      document.getElementById("all").addEventListener("click", onDeleteItem);
+      document.getElementById("all").addEventListener("click", deleteItem);
       document.getElementById("deleteBtn").addEventListener("click", onDeleteAll);
 
       var list = initList();
@@ -49,11 +49,11 @@
         result += '<li>';
         result +=   '<input type="checkbox" id="' + listItem.lineId + '"';
         result +=   listItem.isDone ? ' checked' : '';
-        result +=   '>' + listItem.line;
+        result +=   '> ';
+        result +=   '<span>' + listItem.line + '</span>';
         result +=   '<button type="button" style="margin-left: 15px;" id="deleteItemBtn' + listItem.lineId + 
           '" data-id="' + listItem.lineId + '">delete</button>';
         result += '</li>';
-        console.log(result);
         return result;
       };
 
@@ -93,7 +93,7 @@
         renderAndUpdate();
       };
 
-      function onDeleteItem(event) {
+      function deleteItem(event) {
         if (event.target.type == 'button') {
           deleteLine(list, event.target.dataset.id);
           saveChanges();
