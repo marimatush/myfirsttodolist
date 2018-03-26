@@ -32,7 +32,7 @@
 
       function initList() {
         var list = newList();
-        list = JSON.parse(localStorage.getItem('list'));
+        list = JSON.parse(localStorage.getItem('list')) || [];
         return list;
       };
 
